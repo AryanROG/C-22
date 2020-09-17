@@ -1,6 +1,8 @@
 
 var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
 var packageBody,ground
+var redbox,redboxL,redboxR;
+
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -15,6 +17,10 @@ function preload()
 function setup() {
 	createCanvas(800, 700);
 	rectMode(CENTER);
+
+	engine = Engine.create();
+	world = engine.world;
+
 	
 
 	packageSprite=createSprite(width/2, 80, 10,10);
@@ -29,9 +35,24 @@ function setup() {
 	groundSprite.shapeColor=color(255)
 
 
-	engine = Engine.create();
-	world = engine.world;
+	redbox=createSprite(400,660,200,20);
+	redboxRight=createSprite(490,620,20,100);
+	redboxLeft=createSprite(310,620,20,100);
+	
 
+	redboxBody=Bodies.rectangle(400,660,200,20,{isStatic:false});
+	redboxL=Bodies.rectangle(310,620,20,100,{isStatic:false});
+	redboxR=Bodies.rectangle(490,620,20,100,{isStatic:false});
+
+	World.add(world,redboxL);
+	World.add(world,redboxR);
+	World.add(world,redboxBody)
+	
+	redbox.shapeColor="red";
+	redboxRight.shapeColor="red";
+	redboxLeft.shapeColor="red";
+
+	
 	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.8, isStatic:true});
 	World.add(world, packageBody);
 	
@@ -59,6 +80,9 @@ function keyPressed() {
  if (keyCode === DOWN_ARROW) {
 	// Look at the hints in the document and understand how to make the package body fall only on
 	Matter.Body.setStatic(packageBody,false);
+
+	translation={x:10,y:0}
+	Matter.Body.translate(packageBody,translation);
     
   }
 }
