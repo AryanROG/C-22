@@ -18,9 +18,7 @@ function setup() {
 	createCanvas(800, 700);
 	rectMode(CENTER);
 
-	engine = Engine.create();
-	world = engine.world;
-
+	
 	
 
 	packageSprite=createSprite(width/2, 80, 10,10);
@@ -35,31 +33,38 @@ function setup() {
 	groundSprite.shapeColor=color(255)
 
 
-	redbox=createSprite(400,660,200,20);
-	redboxRight=createSprite(490,620,20,100);
-	redboxLeft=createSprite(310,620,20,100);
 	
 
-	redboxBody=Bodies.rectangle(400,660,200,20,{isStatic:false});
-	redboxL=Bodies.rectangle(310,620,20,100,{isStatic:false});
-	redboxR=Bodies.rectangle(490,620,20,100,{isStatic:false});
+	engine = Engine.create();
+	world = engine.world;
 
-	World.add(world,redboxL);
-	World.add(world,redboxR);
-	World.add(world,redboxBody)
-	
-	redbox.shapeColor="red";
-	redboxRight.shapeColor="red";
-	redboxLeft.shapeColor="red";
-
-	
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.8, isStatic:true});
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0, isStatic:true});
 	World.add(world, packageBody);
 	
 
 	//Create a Ground
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
  	World.add(world, ground);
+
+     redboxLeft=createSprite(310,620,20,100);
+	 redboxL=Bodies.rectangle(310,620,20,100,{isStatic:false});
+	 World.add(world,redboxL);
+
+	 redbox=createSprite(400,660,200,20);
+	 redboxBody=Bodies.rectangle(400,660,200,20,{isStatic:false});
+	 World.add(world,redboxBody)
+
+	 redboxRight=createSprite(490,620,20,100);
+	 redboxR=Bodies.rectangle(490,620,20,100,{isStatic:false});
+     World.add(world,redboxR);
+	
+	
+	redbox.shapeColor="red";
+	redboxRight.shapeColor="red";
+	redboxLeft.shapeColor="red";
+
+	
+	
 
 
 	Engine.run(engine);
@@ -81,8 +86,7 @@ function keyPressed() {
 	// Look at the hints in the document and understand how to make the package body fall only on
 	Matter.Body.setStatic(packageBody,false);
 
-	translation={x:10,y:0}
-	Matter.Body.translate(packageBody,translation);
+	
     
   }
 }
